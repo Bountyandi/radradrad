@@ -1,0 +1,118 @@
+import express from 'express';
+import multer from 'multer';
+import path from 'path';
+import fs from 'fs';
+import jsonfile from 'jsonfile';
+import * as api from './server/apiHandlers';
+
+const PORT = 3000;
+
+const app = express();
+app.use(express.json());
+
+import Candidates from './server/Candidates';
+
+
+global.fileName = '';
+//move to another file...
+const storage = multer.diskStorage({
+  destination: function (req, file, callback) {
+
+    console.log('dest')
+    console.log(file)
+    callback(null, './uploads');
+  },
+  filename: function (req, file, callback) {
+    //console.log(file);
+    fileName = file.originalname;
+    callback(null, file.originalname);
+  }
+});
+const upload = multer({ storage: storage}).single('file');
+
+app.post('/uploadFile/', (req, res) => {
+
+  upload(req, res, function (err) {
+    if (err) {
+      console.log(err);
+      res.end('Error uploading file.');
+    }
+    console.log('File is uploaded');
+    res.end('File is uploaded');
+  });
+
+});
+
+
+app.get('/api/parseFile/', api.parseFile);
+app.put('/api/parseFile/', api.putCandidate);
+app.delete('/api/parseFile/', api.deleteCandidate);
+
+
+
+
+
+
+
+
+
+
+
+
+app.get('/parseFile2/', (req, res) => {
+  let filePath = path.join(__dirname, '/uploads', fileName);
+
+  jsonfile.readFile(filePath, function(err, arr) {
+    if (err) {
+      console.log(err);
+      res.end('Error parsing file.');
+    }
+    //console.dir(arr)
+
+    Candidates.clear();
+    Candidates.addItems(arr);
+
+    let candidates = Candidates.getItems();
+    //console.log(candidates);
+    //res.json({candidates});
+    return candidates;
+  })
+
+
+});
+
+/*
+console.log('---------------------------------/uploadFile/')
+console.log(req.headers['content-type'])
+console.log(req.headers['content-length'])
+*/
+
+
+
+
+
+
+app.listen(PORT, function() {
+  console.log('Listening on port ' + PORT + '...');
+});
+
+// ---------------------------- Webpack
+const isDevelopment = process.env.NODE_ENV === 'development';
+
+if (isDevelopment) {
+  const webpack = require('webpack');
+  const webpackConfig = require('./webpack.config.babel').default;
+  const compiler = webpack(webpackConfig);
+  app.use(require('webpack-dev-middleware')(compiler, {
+    hot: true,
+    stats: {
+      colors: true
+    }
+  }));
+  app.use(require('webpack-hot-middleware')(compiler));
+}
+else {
+  app.use(express.static(__dirname + '/public'));
+}
+// ---------------------------- /Webpack
+
