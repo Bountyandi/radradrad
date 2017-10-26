@@ -9,10 +9,9 @@ const PORT = 3000;
 
 const app = express();
 //app.use(express.json());
-app.use(bodyParser.json())
+app.use(bodyParser.json());
 
 import Candidates from './server/Candidates';
-
 
 global.fileName = '';
 //move to another file...
@@ -41,36 +40,12 @@ app.post('/uploadFile/', (req, res) => {
     res.end('File is uploaded');
   });
 });
-
+app.get('/api/generateFile/:type/', api.generateFile);
+app.get('/api/downloadFile/:filename/', api.downloadFile);
 
 app.get('/api/candidates/', api.parseFile);
-
 app.put('/api/candidates/', api.putCandidate);
 app.delete('/api/candidates/', api.deleteCandidate);
-
-
-
-
-
-app.get('/parseFile2/', (req, res) => {
-  let filePath = path.join(__dirname, '/uploads', fileName);
-
-  jsonfile.readFile(filePath, function(err, arr) {
-    if (err) {
-      console.log(err);
-      res.end('Error parsing file.');
-    }
-
-    Candidates.clear();
-    Candidates.addItems(arr);
-
-    let candidates = Candidates.getItems();
-
-    return candidates;
-  })
-
-
-});
 
 
 app.listen(PORT, function() {

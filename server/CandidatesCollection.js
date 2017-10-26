@@ -21,7 +21,6 @@ export default class CandidatesCollection extends AbstractCollection {
   }
 
   updateItem(item, callback) {
-    console.log(item)
     if (!item) {
       callback('Send correct value please', item)
     }
@@ -31,11 +30,9 @@ export default class CandidatesCollection extends AbstractCollection {
   }
 
   deleteItem(_id, callback) {
-    console.log(_id)
     if (!_id) {
       return callback('Send correct value please', _id)
     }
-    console.log()
     this.itemsArray.splice(_id, 1);
     callback(null, _id);
   }

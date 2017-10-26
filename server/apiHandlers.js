@@ -2,6 +2,8 @@ import mongodb from 'mongodb';
 import path from 'path';
 import parser from './helpers/jsonFileParser';
 import Candidates from './Candidates';
+import { generateJSON, generateCSV } from './helpers/generators';
+
 
 export const parseFile = (req, res) => {
   let filePath = path.join(__dirname, '/../uploads', global.fileName);
@@ -9,7 +11,6 @@ export const parseFile = (req, res) => {
   parser(filePath)
     .then((data) => {
       Candidates.addItems(data);
-
       res.json({candidates: Candidates.getItems()})
     })
     .catch((err) => {
@@ -18,15 +19,45 @@ export const parseFile = (req, res) => {
     });
 };
 
+export const generateFile = (req, res) => {
+  let { type } = req.params;
+  let filename = 'mydb';
+  let candidatesArray = Candidates.getItems();
+
+  switch (type) {
+    case 'json':
+      generateJSON(candidatesArray, filename, res);
+      break;
+    case 'csv':
+      generateCSV(candidatesArray, filename, res);
+      break;
+    default:
+      break;
+  }
+};
+
+
+export const downloadFile = (req, res) => {
+  let { filename } = req.params;
+
+  console.log('downloadFile')
+
+  //let p = path.resolve('.') + '/uploads/' + filename;
+  //let filePath = path.join('uploads', filename);
+  let filePath = path.resolve('.') + '/uploads/' + filename;
+
+  console.log(filePath);
+
+  res.download(filePath)
+};
+
 export const putCandidate = (req, res) => {
   let { candidate } = req.body;
   //needs validation
-  console.log(req.body)
-  console.log(candidate)
+
   Candidates.updateItem(candidate, ( err, data ) => {
     res.json(data);
   });
-
 };
 
 export const deleteCandidate = (req, res) => {
@@ -37,43 +68,3 @@ export const deleteCandidate = (req, res) => {
     res.json(data);
   });
 };
-
-
-
-
-
-/*
-
-export const putTermino = (req, res) => {
-  const { _id, name, description } = req.body;
-
-  global.db.collection('terminos').update(
-    { _id: new mongodb.ObjectId(_id) },
-    { $set: { name, description } },
-    (err, result) => {
-      errorHandler(err);
-      res.json({ _id, name, description });
-    })
-};
-
-export const deleteTermino = (req, res) => {
-  const { _id } = req.body;
-
-  global.db.collection('terminos').remove(
-    { _id: new mongodb.ObjectId(_id) },
-    (err, result) => {
-      errorHandler(err);
-      res.json({ _id });
-    })
-};
-
-*/
-
-/*
-function errorHandler(err) {
-  if (err) {
-    res.status(500).json({errors: {global: 'Something went wrong'}});
-  }
-}
-*/
-

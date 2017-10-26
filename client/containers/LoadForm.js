@@ -3,7 +3,8 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import {
   uploadFile,
-  fetchCandidates
+  fetchCandidates,
+  getFile
 } from '../actions/asyncActions';
 
 
@@ -21,6 +22,11 @@ class LoadForm extends Component {
 
     this.handleFileUpload = this.handleFileUpload.bind(this);
     this.loadCandidates = this.loadCandidates.bind(this);
+    this.downloadFile = this.downloadFile.bind(this);
+  }
+
+  downloadFile(event){
+    this.props.getFile(event.target.name);
   }
 
   loadCandidates() {
@@ -41,28 +47,11 @@ class LoadForm extends Component {
       <Container>
 
 
-
-
-{/*
-
         <form
-          onSubmit={this.handleFileUpload}
-          id="uploadForm"
-          encType="multipart/form-data"
-              //action="/uploadFile"
-              //method="post"
-        >
-          <input type="file" name="file"/>
-          <input type="submit" value="Upload Image" name="submit" />
-        </form>
-
-*/}
-
-        <form
-          id="uploadForm"
-          encType="multipart/form-data"
-          action="/uploadFile/"
-          method="post"
+          id='uploadForm'
+          encType='multipart/form-data'
+          action='/uploadFile/'
+          method='post'
         >
           <Input type='file' name='file'/>
           <Input
@@ -78,10 +67,22 @@ class LoadForm extends Component {
           onClick={this.loadCandidates}> Fetch Candidates</button>
 
 
+        <br/>
+        <br/>
+
+        <button
+          name='json'
+          onClick={this.downloadFile}>Download JSON file</button>
+
+        <button
+          name='csv'
+          onClick={this.downloadFile}>Download CSV file</button>
+
+
       </Container>
     )
   }
 }
 
 
-export default connect(null, { uploadFile, fetchCandidates })(LoadForm)
+export default connect(null, { uploadFile, fetchCandidates, getFile })(LoadForm)

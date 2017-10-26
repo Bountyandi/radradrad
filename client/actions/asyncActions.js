@@ -1,4 +1,5 @@
 import API from './helpers/api';
+import { downloadFile } from './helpers/downloadFile';
 import {
   setCandidates,
   putCandidate,
@@ -32,14 +33,21 @@ export const removeCandidate = ( data ) => {
 
   return dispatch => {
     API.delete(url, data)
-      .then( res => {
-        debugger
-          dispatch(deleteCandidate(res))
-        }
-      )
+      .then( res => dispatch(
+        deleteCandidate(res)
+      ))
   }
 };
 
+export const getFile = (data) => {
+  let url = `/api/generateFile/${data}`;
+
+  return dispatch => {
+    API.get(url)
+      .then( resp => downloadFile(resp.filename))
+  }
+
+};
 
 export const uploadFile = ( file, name ) => {
   let data = new FormData();

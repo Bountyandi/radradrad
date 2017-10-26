@@ -73,7 +73,7 @@ export default class CandidateItem extends Component {
         <Table.Cell textAlign='center'>
           <Button basic compact
             icon={'edit'}
-            content={'Update'}
+            content={'Edit'}
             color={'teal'}
             onClick={this.onEditable}
           />
