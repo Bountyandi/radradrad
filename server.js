@@ -4,11 +4,12 @@ import path from 'path';
 import fs from 'fs';
 import jsonfile from 'jsonfile';
 import * as api from './server/apiHandlers';
-
+import bodyParser from 'body-parser'
 const PORT = 3000;
 
 const app = express();
-app.use(express.json());
+//app.use(express.json());
+app.use(bodyParser.json())
 
 import Candidates from './server/Candidates';
 
@@ -31,7 +32,6 @@ const storage = multer.diskStorage({
 const upload = multer({ storage: storage}).single('file');
 
 app.post('/uploadFile/', (req, res) => {
-
   upload(req, res, function (err) {
     if (err) {
       console.log(err);
@@ -40,20 +40,13 @@ app.post('/uploadFile/', (req, res) => {
     console.log('File is uploaded');
     res.end('File is uploaded');
   });
-
 });
 
 
-app.get('/api/parseFile/', api.parseFile);
-app.put('/api/parseFile/', api.putCandidate);
-app.delete('/api/parseFile/', api.deleteCandidate);
+app.get('/api/candidates/', api.parseFile);
 
-
-
-
-
-
-
+app.put('/api/candidates/', api.putCandidate);
+app.delete('/api/candidates/', api.deleteCandidate);
 
 
 
@@ -67,29 +60,17 @@ app.get('/parseFile2/', (req, res) => {
       console.log(err);
       res.end('Error parsing file.');
     }
-    //console.dir(arr)
 
     Candidates.clear();
     Candidates.addItems(arr);
 
     let candidates = Candidates.getItems();
-    //console.log(candidates);
-    //res.json({candidates});
+
     return candidates;
   })
 
 
 });
-
-/*
-console.log('---------------------------------/uploadFile/')
-console.log(req.headers['content-type'])
-console.log(req.headers['content-length'])
-*/
-
-
-
-
 
 
 app.listen(PORT, function() {

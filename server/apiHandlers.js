@@ -4,7 +4,6 @@ import parser from './helpers/jsonFileParser';
 import Candidates from './Candidates';
 
 export const parseFile = (req, res) => {
-
   let filePath = path.join(__dirname, '/../uploads', global.fileName);
 
   parser(filePath)
@@ -22,9 +21,10 @@ export const parseFile = (req, res) => {
 export const putCandidate = (req, res) => {
   let { candidate } = req.body;
   //needs validation
-
+  console.log(req.body)
+  console.log(candidate)
   Candidates.updateItem(candidate, ( err, data ) => {
-    res.end(data);
+    res.json(data);
   });
 
 };
@@ -34,7 +34,7 @@ export const deleteCandidate = (req, res) => {
   //needs validation
 
   Candidates.deleteItem(_id, ( err, data ) => {
-    res.end(data);
+    res.json(data);
   });
 };
 

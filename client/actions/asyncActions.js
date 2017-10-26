@@ -1,14 +1,45 @@
+import API from './helpers/api';
 import {
+  setCandidates,
+  putCandidate,
+  deleteCandidate,
   uploadSuccess,
   uploadFail,
-  //editTermino,
-  //deleteTermino,
-  //addTerminos,
 } from './actions';
 
-//import API from './helpers/api';
 
-import axios from 'axios';
+export const fetchCandidates = () => {
+  let url = '/api/candidates/';
+  return dispatch => {
+    API.get(url)
+      .then(data => dispatch(setCandidates(data.candidates)) )
+  }
+};
+
+export const updateCandidate = ( candidate ) => {
+  let url = '/api/candidates/';
+
+  return dispatch => {
+    API.put(url, candidate)
+      .then( data =>
+        dispatch(putCandidate(data))
+      )
+  }
+};
+
+export const removeCandidate = ( data ) => {
+  let url = '/api/candidates/';
+
+  return dispatch => {
+    API.delete(url, data)
+      .then( res => {
+        debugger
+          dispatch(deleteCandidate(res))
+        }
+      )
+  }
+};
+
 
 export const uploadFile = ( file, name ) => {
   let data = new FormData();
@@ -45,46 +76,5 @@ export const uploadFile = ( file, name ) => {
       })
       //dispatch(uploadSuccess(res)) })
       .catch(err => dispatch(uploadFail(err)))
-  }
-};
-
-export const uploadFile2 = ( file, name ) => {
-  let data = new FormData();
-  data.append('file', document);
-  data.append('name', name);
-
-  debugger
-
-  const config = {
-    headers: {
-      'Content-Type': 'multipart/form-data'
-    }
-  };
-
-  return dispatch => {
-    axios.post('/uploadFile/', file, config)
-      .then( res => {
-        console.log(res)
-      })
-        //dispatch(uploadSuccess(res)) })
-      .catch(err => dispatch(uploadFail(err)) )
-  }
-};
-
-
-export const uploadFile3 = ( file, name ) => {
-  let data = new FormData();
-  data.append('file', document);
-  data.append('name', name);
-
-  debugger
-
-  return dispatch => {
-    axios.post('/uploadFile', data)
-      .then( res => {
-        console.log(res)
-      })
-      //dispatch(uploadSuccess(res)) })
-      .catch(err => dispatch(uploadFail(err)) )
   }
 };
