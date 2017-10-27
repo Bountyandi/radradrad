@@ -13,7 +13,10 @@ export const fetchCandidates = () => {
   let url = '/api/candidates/';
   return dispatch => {
     API.get(url)
-      .then(data => dispatch(setCandidates(data.candidates)) )
+      .then(data => {
+        debugger
+        dispatch(setCandidates(data.candidates))
+      })
   }
 };
 

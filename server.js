@@ -1,39 +1,18 @@
 import express from 'express';
-import multer from 'multer';
 import path from 'path';
-import fs from 'fs';
-import jsonfile from 'jsonfile';
 import * as api from './server/apiHandlers';
 import bodyParser from 'body-parser'
-const PORT = 3000;
-
-const app = express();
-//app.use(express.json());
-app.use(bodyParser.json());
-
+import { multerUpload } from './server/multerUpload'
 import Candidates from './server/Candidates';
 
-global.fileName = '';
-//move to another file...
-const storage = multer.diskStorage({
-  destination: function (req, file, callback) {
-
-    console.log('dest')
-    console.log(file)
-    callback(null, './uploads');
-  },
-  filename: function (req, file, callback) {
-    //console.log(file);
-    fileName = file.originalname;
-    callback(null, file.originalname);
-  }
-});
-const upload = multer({ storage: storage}).single('file');
+const PORT = 3000;
+const app = express();
+app.use(bodyParser.json());
 
 app.post('/api/uploadFile', (req, res) => {
   let { referer } = req.headers;
 
-  upload(req, res, function (err) {
+  multerUpload(req, res, function (err) {
     if (err) {
       console.log(err);
       res.end('Error uploading file.');

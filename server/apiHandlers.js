@@ -4,7 +4,6 @@ import parser from './helpers/jsonFileParser';
 import Candidates from './Candidates';
 import { generateJSON, generateCSV } from './helpers/generators';
 
-
 export const parseFile = (req, res) => {
   //spike
   if (global.fileName) {
@@ -39,17 +38,9 @@ export const generateFile = (req, res) => {
   }
 };
 
-
 export const downloadFile = (req, res) => {
   let { filename } = req.params;
-
-  console.log('downloadFile')
-
-  //let p = path.resolve('.') + '/uploads/' + filename;
-  //let filePath = path.join('uploads', filename);
   let filePath = path.resolve('.') + '/uploads/' + filename;
-
-  console.log(filePath);
 
   res.download(filePath)
 };
