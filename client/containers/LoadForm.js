@@ -21,23 +21,20 @@ class LoadForm extends Component {
     super(props);
 
     this.handleFileUpload = this.handleFileUpload.bind(this);
-    this.loadCandidates = this.loadCandidates.bind(this);
     this.downloadFile = this.downloadFile.bind(this);
+  }
+
+  componentWillMount(){
+    this.props.fetchCandidates();
   }
 
   downloadFile(event){
     this.props.getFile(event.target.name);
   }
 
-  loadCandidates() {
-    //validation if state is FILE_UPLOADED
-    this.props.fetchCandidates();
-  }
-
   handleFileUpload( event ) {
     event.preventDefault();
     const file = event.target[0].files[0];
-
     this.props.uploadFile(event.target, file.name);
   }
 
@@ -46,16 +43,17 @@ class LoadForm extends Component {
     return (
       <Container>
 
+        <br/>
 
         <form
+          target='_self'
           id='uploadForm'
-          encType='multipart/form-data'
-          action='/uploadFile/'
+          action='/api/uploadFile'
           method='post'
+          encType='multipart/form-data'
         >
-          <Input type='file' name='file'/>
-          <Input
-            as='button'
+          <input type='file' name='file' />
+          <input
             type='submit'
             value='Upload JSON file'
             name='submit' />
@@ -63,22 +61,31 @@ class LoadForm extends Component {
 
         <br/>
 
-        <button
-          onClick={this.loadCandidates}> Fetch Candidates</button>
+{/* comp */}
+{/*
 
+        <Button
+          basic
+          color='teal'
+          onClick={this.loadCandidates}>Fetch Candidates</Button>
+*/}
 
-        <br/>
-        <br/>
-
-        <button
+        <Button
+          basic
+          color='yellow'
           name='json'
-          onClick={this.downloadFile}>Download JSON file</button>
+          onClick={this.downloadFile}>Download JSON file</Button>
 
-        <button
+        <Button
+          basic
+          color='green'
           name='csv'
-          onClick={this.downloadFile}>Download CSV file</button>
+          onClick={this.downloadFile}>Download CSV file</Button>
 
+        <br/>
+        <br/>
 
+        {/* /comp */}
       </Container>
     )
   }

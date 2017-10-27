@@ -6,17 +6,20 @@ import { generateJSON, generateCSV } from './helpers/generators';
 
 
 export const parseFile = (req, res) => {
-  let filePath = path.join(__dirname, '/../uploads', global.fileName);
+  //spike
+  if (global.fileName) {
+    let filePath = path.join(__dirname, '/../uploads', global.fileName);
 
-  parser(filePath)
-    .then((data) => {
-      Candidates.addItems(data);
-      res.json({candidates: Candidates.getItems()})
-    })
-    .catch((err) => {
-      console.log(err);
-      res.end('Error parsing file.' + err);
-    });
+    parser(filePath)
+      .then((data) => {
+        Candidates.addItems(data);
+        res.json({candidates: Candidates.getItems()})
+      })
+      .catch((err) => {
+        console.log(err);
+        res.end('Error parsing file.' + err);
+      });
+  }
 };
 
 export const generateFile = (req, res) => {

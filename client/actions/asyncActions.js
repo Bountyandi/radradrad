@@ -49,40 +49,19 @@ export const getFile = (data) => {
 
 };
 
+
 export const uploadFile = ( file, name ) => {
   let data = new FormData();
   data.append('file', document);
   data.append('name', name);
 
-
-  debugger
-
-  //const config = {
-  //  headers: {
-  //    'Content-Type': undefined//'multipart/form-data'
-  //  }
-  //};
-
-
-  var myHeaders = new Headers({
-    'accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*!/!*;q=0.8',
-    'cache-control': 'max-age=0',
-    'upgrade-insecure-requests': '1',
-    //"Content-Type": "multipart/form-data",
-    //'Content-Length': file.size,
-    //"X-Custom-Header": "ProcessThisImmediately",
-  });
-
   return dispatch => {
-    fetch('/uploadFile/', {
+    fetch('/api/uploadFile/', {
       method: 'post',
-      body: file,
-      //headers: myHeaders
+      body: data
     })
-      .then(res => {
-        console.log(res)
-      })
-      //dispatch(uploadSuccess(res)) })
-      .catch(err => dispatch(uploadFail(err)))
+    .then(res => dispatch(uploadSuccess(res)))
+    .catch(err => dispatch(uploadFail(err)))
   }
 };
+

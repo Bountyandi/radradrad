@@ -30,16 +30,22 @@ const storage = multer.diskStorage({
 });
 const upload = multer({ storage: storage}).single('file');
 
-app.post('/uploadFile/', (req, res) => {
+app.post('/api/uploadFile', (req, res) => {
+  let { referer } = req.headers;
+
   upload(req, res, function (err) {
     if (err) {
       console.log(err);
       res.end('Error uploading file.');
     }
     console.log('File is uploaded');
-    res.end('File is uploaded');
+    //res.end('File is uploaded');
+
+    // spike for form after submit redirecting
+    res.redirect(referer);
   });
 });
+
 app.get('/api/generateFile/:type/', api.generateFile);
 app.get('/api/downloadFile/:filename/', api.downloadFile);
 

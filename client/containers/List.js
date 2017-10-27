@@ -46,16 +46,16 @@ class List extends PureComponent  {
     );
 
 
-    return (
-
-      <Table fixed celled>
+    return [
+      //<p key='p'>make double click to edit</p>,
+      <Table fixed celled key='table'>
         {tableHeader}
 
         <Table.Body>
           {listItems}
         </Table.Body>
       </Table>
-    )
+    ]
   }
 }
 
