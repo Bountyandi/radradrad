@@ -25,6 +25,8 @@ export default class CandidatesCollection extends AbstractCollection {
       callback('Send correct value please', item)
     }
 
+    item.candidateNeedOffer = parseInt(item.candidateNeedOffer);
+
     this.itemsArray.splice(item._id, 1, item);
     callback(null, item);
   }
@@ -33,7 +35,6 @@ export default class CandidatesCollection extends AbstractCollection {
     if (!_id) {
       return callback('Send correct value please', _id)
     }
-
     this.itemsArray.splice(_id, 1);
     callback(null, _id);
   }

@@ -1,95 +1,36 @@
 import express from 'express';
-import multer from 'multer';
 import path from 'path';
-import fs from 'fs';
-import jsonfile from 'jsonfile';
 import * as api from './server/apiHandlers';
-
-const PORT = 3000;
-
-const app = express();
-app.use(express.json());
-
+import bodyParser from 'body-parser'
+import { multerUpload } from './server/multerUpload'
 import Candidates from './server/Candidates';
 
+const PORT = 3000;
+const app = express();
+app.use(bodyParser.json());
 
-global.fileName = '';
-//move to another file...
-const storage = multer.diskStorage({
-  destination: function (req, file, callback) {
+app.post('/api/uploadFile', (req, res) => {
+  let { referer } = req.headers;
 
-    console.log('dest')
-    console.log(file)
-    callback(null, './uploads');
-  },
-  filename: function (req, file, callback) {
-    //console.log(file);
-    fileName = file.originalname;
-    callback(null, file.originalname);
-  }
-});
-const upload = multer({ storage: storage}).single('file');
-
-app.post('/uploadFile/', (req, res) => {
-
-  upload(req, res, function (err) {
+  multerUpload(req, res, function (err) {
     if (err) {
       console.log(err);
       res.end('Error uploading file.');
     }
     console.log('File is uploaded');
-    res.end('File is uploaded');
+    //res.end('File is uploaded');
+
+    // spike for form after submit redirecting
+    res.redirect(referer);
   });
-
 });
 
+app.get('/api/generateFile/:type/', api.generateFile);
+app.get('/api/downloadFile/:filename/', api.downloadFile);
 
-app.get('/api/parseFile/', api.parseFile);
-app.put('/api/parseFile/', api.putCandidate);
-app.delete('/api/parseFile/', api.deleteCandidate);
-
-
-
-
-
-
-
-
-
-
-
-
-app.get('/parseFile2/', (req, res) => {
-  let filePath = path.join(__dirname, '/uploads', fileName);
-
-  jsonfile.readFile(filePath, function(err, arr) {
-    if (err) {
-      console.log(err);
-      res.end('Error parsing file.');
-    }
-    //console.dir(arr)
-
-    Candidates.clear();
-    Candidates.addItems(arr);
-
-    let candidates = Candidates.getItems();
-    //console.log(candidates);
-    //res.json({candidates});
-    return candidates;
-  })
-
-
-});
-
-/*
-console.log('---------------------------------/uploadFile/')
-console.log(req.headers['content-type'])
-console.log(req.headers['content-length'])
-*/
-
-
-
-
+app.get('/api/candidates/', api.parseFile);
+app.put('/api/candidates/', api.putCandidate);
+app.delete('/api/candidates/', api.deleteCandidate);
 
 
 app.listen(PORT, function() {

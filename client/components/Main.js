@@ -1,14 +1,22 @@
 import React, { Component } from 'react';
-import LoadForm from './LoadForm';
-import List from './List';
+import LoadForm from '../containers/LoadForm';
+import CandidatesTable from '../containers/CandidatesTable';
+import DownloadButtons from '../containers/DownloadButtons';
+
+import { Header } from 'semantic-ui-react';
 
 const Main = () => (
   <div>
+    <Header
+      textAlign='center'
+      color='grey'
+      size='huge'>
+      JSON PARSER + EDITOR + GENERATOR
+    </Header>
     <LoadForm/>
-
-    <List/>
+    <DownloadButtons/>
+    <CandidatesTable/>
   </div>
 );
-
 
 export default Main;

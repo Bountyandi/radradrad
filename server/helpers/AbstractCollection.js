@@ -1,30 +1,15 @@
 export default class AbstractCollection {
 
-  constructor() {
-    //this.itemsArray = [];
-  }
+  constructor() {}
 
-  getItems() {
-    //return this.itemsArray;
-  }
+  getItems() {}
 
-  addItems() {
-    //array.forEach((item, index) => {
-    //  item._id = index;
-    //  this.itemsArray.push(item);
-    //});
-  }
+  addItems() {}
 
-  updateItem() {
-    //this.itemsArray.splice(item._id, 1, item);
-  }
+  updateItem() {}
 
-  deleteItem() {
-    //this.itemsArray.splice(_id, 1);
-  }
+  deleteItem() {}
 
-  clear() {
-    //this.itemsArray.length = 0;
-  }
+  clear() {}
 
 }
