@@ -18,30 +18,10 @@ export default class EditableItem extends Component {
 
     this.updateCandidate = this.updateCandidate.bind(this);
 
-    //this.handleName = this.handleName.bind(this);
-    //this.handleStatus = this.handleStatus.bind(this);
-    //this.handleNeedOffer = this.handleNeedOffer.bind(this);
     this.handleInput = this.handleInput.bind(this);
   }
-  //handleName(event) {
-  //  debugger
-  //  this.setState({
-  //    candidateName: event.target.value
-  //  });
-  //}
-  //handleName(event) {
-  //  debugger
-  //  this.setState({
-  //    candidateName: event.target.value
-  //  });
-  //}
-  //handleStatus(event) {
-  //  this.setState({
-  //    candidateStatus: event.target.value
-  //  });
-  //}
+
   handleInput(ev) {
-    debugger
     this.setState({
       [ev.target.name]: ev.target.value
     });
@@ -53,7 +33,6 @@ export default class EditableItem extends Component {
   }
 
   render() {
-
     const { _id, candidateName, candidateStatus, candidateNeedOffer } = this.props;
     const candidate = { _id, candidateName, candidateStatus, candidateNeedOffer };
 
@@ -96,22 +75,6 @@ export default class EditableItem extends Component {
 
         </Table.Cell>
       </Table.Row>
-
-
-/*
-
-          <Button
-            basic
-            compact
-            icon={'close'}
-            content={'Delete'}
-            floated={'right'}
-            color={'red'}
-            onClick={this.removeTermino}
-          />
-*/
-
-
     )
   }
 }

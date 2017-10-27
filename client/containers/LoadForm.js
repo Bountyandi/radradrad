@@ -3,8 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import {
   uploadFile,
-  fetchCandidates,
-  getFile
+  fetchCandidates
 } from '../actions/asyncActions';
 
 
@@ -21,15 +20,10 @@ class LoadForm extends Component {
     super(props);
 
     this.handleFileUpload = this.handleFileUpload.bind(this);
-    this.downloadFile = this.downloadFile.bind(this);
   }
 
   componentWillMount(){
     this.props.fetchCandidates();
-  }
-
-  downloadFile(event){
-    this.props.getFile(event.target.name);
   }
 
   handleFileUpload( event ) {
@@ -58,38 +52,12 @@ class LoadForm extends Component {
             value='Upload JSON file'
             name='submit' />
         </form>
-
         <br/>
 
-{/* comp */}
-{/*
-
-        <Button
-          basic
-          color='teal'
-          onClick={this.loadCandidates}>Fetch Candidates</Button>
-*/}
-
-        <Button
-          basic
-          color='yellow'
-          name='json'
-          onClick={this.downloadFile}>Download JSON file</Button>
-
-        <Button
-          basic
-          color='green'
-          name='csv'
-          onClick={this.downloadFile}>Download CSV file</Button>
-
-        <br/>
-        <br/>
-
-        {/* /comp */}
       </Container>
     )
   }
 }
 
 
-export default connect(null, { uploadFile, fetchCandidates, getFile })(LoadForm)
+export default connect(null, { uploadFile, fetchCandidates })(LoadForm)
