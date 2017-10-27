@@ -49,7 +49,6 @@ export const getFile = (data) => {
 
 };
 
-
 export const uploadFile = ( file, name ) => {
   let data = new FormData();
   data.append('file', document);

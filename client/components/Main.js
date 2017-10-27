@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import LoadForm from '../containers/LoadForm';
-import List from '../containers/List';
+import CandidatesTable from '../containers/CandidatesTable';
 
 import { Header } from 'semantic-ui-react';
 
@@ -13,7 +13,7 @@ const Main = () => (
       JSON PARSER + EDITOR + GENERATOR
     </Header>
     <LoadForm/>
-    <List/>
+    <CandidatesTable/>
   </div>
 );
 

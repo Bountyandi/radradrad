@@ -11,7 +11,7 @@ import TableHeader from '../components/TableHeader';
 import { Button, Icon, Label, Menu, Table } from 'semantic-ui-react';
 
 
-class List extends PureComponent  {
+class CandidatesTable extends PureComponent  {
 
   static propTypes = {
     candidates: PropTypes.array.isRequired,
@@ -46,16 +46,15 @@ class List extends PureComponent  {
     );
 
 
-    return [
-      //<p key='p'>make double click to edit</p>,
-      <Table fixed celled key='table'>
+    return (
+      <Table fixed celled>
         {tableHeader}
 
         <Table.Body>
           {listItems}
         </Table.Body>
       </Table>
-    ]
+  )
   }
 }
 
@@ -65,4 +64,4 @@ function mapStateToProps(state) {
   }
 }
 
-export default connect(mapStateToProps, { updateCandidate, removeCandidate })(List)
+export default connect(mapStateToProps, { updateCandidate, removeCandidate })(CandidatesTable)

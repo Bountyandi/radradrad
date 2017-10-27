@@ -25,6 +25,8 @@ export default class CandidatesCollection extends AbstractCollection {
       callback('Send correct value please', item)
     }
 
+    item.candidateNeedOffer = parseInt(item.candidateNeedOffer);
+    console.log(item)
     this.itemsArray.splice(item._id, 1, item);
     callback(null, item);
   }
