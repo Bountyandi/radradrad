@@ -17,10 +17,7 @@ app.post('/api/uploadFile', (req, res) => {
       console.log(err);
       res.end('Error uploading file.');
     }
-    console.log('File is uploaded');
-    //res.end('File is uploaded');
-
-    // spike for form after submit redirecting
+    // for form after submit redirecting
     res.redirect(referer);
   });
 });

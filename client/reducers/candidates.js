@@ -2,7 +2,7 @@ import {
   SET_CANDIDATES,
   PUT_CANDIDATE,
   DELETE_CANDIDATE
-} from '../actions/ActionsTypes'
+} from '../actions/actionsTypes'
 
 const initialState = [];
 

@@ -1,10 +1,7 @@
 import {
-  //ADD_TERMINO,
-  //SET_TERMINOS,
-  //DELETE_TERMINO,
-  //EDIT_TERMINO,
-  ADD_TERMINOS,
-} from '../actions/ActionsTypes'
+  UPLOAD_DOCUMENT_SUCCESS,
+  UPLOAD_DOCUMENT_FAIL,
+} from '../actions/actionsTypes'
 
 const initialState = [];
 
@@ -12,8 +9,12 @@ const files = (state = initialState, action) => {
 
   switch (action.type) {
 
-    case ADD_TERMINOS:
-      return [...state, ...action.terminos];
+    case UPLOAD_DOCUMENT_SUCCESS:
+      return { isSuccessUpload: true };
+
+    case UPLOAD_DOCUMENT_FAIL:
+
+      return { isSuccessUpload: false };
 
 
 

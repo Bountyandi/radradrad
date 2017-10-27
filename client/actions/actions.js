@@ -1,4 +1,4 @@
-import * as types from './ActionsTypes'
+import * as types from './actionsTypes'
 
 
 export const setCandidates = ( candidates ) => {

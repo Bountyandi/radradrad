@@ -1,21 +1,21 @@
 import path from 'path';
 import fs from 'fs';
 import json2csv from 'json2csv';
-const ENCODING = 'utf8';
+import * as CONSTANTS from '../constants';
 
 export const generateJSON = (candidatesArray, filename, res) => {
-  filename = `${filename}.json`;
-  let filePath = path.join('uploads', filename);
+  filename = `${filename}.${CONSTANTS.JSON_EXT}`;
+  let filePath = path.join(CONSTANTS.UPLOAD_FOLDER, filename);
   let jsonData = JSON.stringify(candidatesArray);
 
-  fs.writeFile( filePath, jsonData, ENCODING, (err) => {
+  fs.writeFile( filePath, jsonData, CONSTANTS.ENCODING, (err) => {
     if (err) { return; }
     res.json({ filename });
   });
 };
 
 export const generateCSV = (candidatesArray, filename, res) => {
-  filename = `${filename}.csv`;
+  filename = `${filename}.${CONSTANTS.CSV_EXT}`;
   let filePath = path.join('uploads', filename);
   const fields = ['candidateName', 'candidateStatus', 'candidateNeedOffer'];
   const csvData = json2csv({
@@ -23,7 +23,7 @@ export const generateCSV = (candidatesArray, filename, res) => {
     fields: fields
   });
 
-  fs.writeFile( filePath, csvData, ENCODING, (err) => {
+  fs.writeFile( filePath, csvData, CONSTANTS.ENCODING, (err) => {
     if (err) { return; }
     res.json({ filename });
   });

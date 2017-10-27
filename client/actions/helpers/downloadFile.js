@@ -6,8 +6,7 @@ export const downloadFile = (filename, blob) => {
 };
 
 
-
-/*
+/* first spike
 export const downloadFile = (blob) => {
   debugger
   let a = document.createElement('a');

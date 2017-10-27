@@ -3,11 +3,14 @@ import path from 'path';
 import parser from './helpers/jsonFileParser';
 import Candidates from './Candidates';
 import { generateJSON, generateCSV } from './helpers/generators';
+import * as CONSTANTS from './constants';
 
 export const parseFile = (req, res) => {
-  //spike
   if (global.fileName) {
-    let filePath = path.join(__dirname, '/../uploads', global.fileName);
+    let filePath = path.join(
+      __dirname, '/../',
+      CONSTANTS.UPLOAD_FOLDER,
+      global.fileName);
 
     parser(filePath)
       .then((data) => {
@@ -23,14 +26,14 @@ export const parseFile = (req, res) => {
 
 export const generateFile = (req, res) => {
   let { type } = req.params;
-  let filename = 'mydb';
+  let filename = CONSTANTS.GENERATED_FILENAME;
   let candidatesArray = Candidates.getItems();
 
   switch (type) {
-    case 'json':
+    case CONSTANTS.JSON_EXT:
       generateJSON(candidatesArray, filename, res);
       break;
-    case 'csv':
+    case CONSTANTS.CSV_EXT:
       generateCSV(candidatesArray, filename, res);
       break;
     default:

@@ -5,7 +5,7 @@ import {
   putCandidate,
   deleteCandidate,
   uploadSuccess,
-  uploadFail,
+  uploadFail
 } from './actions';
 
 
@@ -14,7 +14,6 @@ export const fetchCandidates = () => {
   return dispatch => {
     API.get(url)
       .then(data => {
-        debugger
         dispatch(setCandidates(data.candidates))
       })
   }
@@ -38,7 +37,7 @@ export const removeCandidate = ( data ) => {
     API.delete(url, data)
       .then( res => dispatch(
         deleteCandidate(res)
-      ))
+    ))
   }
 };
 
@@ -49,7 +48,6 @@ export const getFile = (data) => {
     API.get(url)
       .then( resp => downloadFile(resp.filename))
   }
-
 };
 
 export const uploadFile = ( file, name ) => {
