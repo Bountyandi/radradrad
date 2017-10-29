@@ -1,10 +1,21 @@
-# react-hot-mobx-es6
-A minimal skeleton for building React ES6 apps using Babel.
+# radradrad
+JSON-parser
 
-##Getting Started
+### Info:
+Upload JSON file on server. Parse it. Render on ui. Update, delete objects. Download in .json or .csv.
 
-```npm install``` - Install dependencies.<br/>
-```npm run build-dev``` - Run development build with hot reload. If it doesn't start, make sure you aren't running anything else in the same port. Default PORT=7700<br/>
-```npm run build-prod``` -  Run production build. See `public` folder.<br/>
+### Main technologies:
+React.js, Redux, ES6
+Node.js, Express.js, Multer, json2csv, fs
+Webpack
 
-Start modifying the code. The browser should pick up the changes.
+### How to start
+0. clone project https://github.com/Bountyandi/radradrad.git
+1. npm install
+2. npm start
+3. go to  http://localhost:3000
+4. use it
+
+
+Developed on Win 7
+
