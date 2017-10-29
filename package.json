@@ -1,7 +1,7 @@
 {
-  "name": "radrad",
+  "name": "radradrad",
   "version": "1.0.0",
-  "description": "aller",
+  "description": "radradrad",
   "scripts": {
     "start": "set NODE_ENV=development&& babel-node server.js",
     "build-dev": "set NODE_ENV=development&& babel-node server.js",
@@ -20,6 +20,7 @@
     "classnames": "^2.2.5",
     "express": "^4.14.1",
     "formidable": "^1.1.1",
+    "immutable": "^3.8.2",
     "json2csv": "^3.11.5",
     "jsonfile": "^4.0.0",
     "mongodb": "^2.2.31",

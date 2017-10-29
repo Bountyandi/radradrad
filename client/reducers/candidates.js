@@ -4,14 +4,17 @@ import {
   DELETE_CANDIDATE
 } from '../actions/actionsTypes'
 
-const initialState = [];
+import Immutable from 'immutable'
+
+
+const initialState = Immutable.List([]);
 
 const candidates = (state = initialState, action) => {
 
   switch (action.type) {
 
     case SET_CANDIDATES:
-      return action.candidates;
+      return state.concat(action.candidates);
 
     case PUT_CANDIDATE:
       return state.map(c => {
