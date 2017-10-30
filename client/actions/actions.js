@@ -22,16 +22,14 @@ export const deleteCandidate = (_id) => {
   }
 };
 
-export function uploadSuccess({ data }) {
+export const uploadSuccess = () => {
   return {
-    type: types.UPLOAD_DOCUMENT_SUCCESS,
-    data,
-  };
-}
+    type: types.UPLOAD_DOCUMENT_SUCCESS
+  }
+};
 
-export function uploadFail(error) {
+export const uploadFail = () => {
   return {
-    type: types.UPLOAD_DOCUMENT_FAIL,
-    error,
-  };
-}
+    type: types.UPLOAD_DOCUMENT_FAIL
+  }
+};

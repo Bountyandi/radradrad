@@ -1,7 +1,7 @@
 import express from 'express';
 import path from 'path';
 import * as api from './server/apiHandlers';
-import bodyParser from 'body-parser'
+import bodyParser from 'body-parser';
 import Candidates from './server/Candidates';
 
 const PORT = 3000;

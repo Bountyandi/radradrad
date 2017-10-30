@@ -14,6 +14,7 @@ const candidates = (state = initialState, action) => {
   switch (action.type) {
 
     case SET_CANDIDATES:
+      state.clear();
       return state.concat(action.candidates);
 
     case PUT_CANDIDATE:

@@ -25,7 +25,6 @@ class CandidatesTable extends PureComponent  {
 
   }
 
-
   render() {
     const { candidates } = this.props;
     var tableHeader;
@@ -46,7 +45,6 @@ class CandidatesTable extends PureComponent  {
       />
     );
 
-
     return (
       <Table fixed celled>
         {tableHeader}
@@ -55,7 +53,7 @@ class CandidatesTable extends PureComponent  {
           {listItems}
         </Table.Body>
       </Table>
-  )
+    )
   }
 }
 
@@ -65,4 +63,7 @@ function mapStateToProps(state) {
   }
 }
 
-export default connect(mapStateToProps, { updateCandidate, removeCandidate })(CandidatesTable)
+export default connect(mapStateToProps, {
+  updateCandidate,
+  removeCandidate
+})(CandidatesTable)

@@ -11,9 +11,11 @@ import {
 
 export const fetchCandidates = () => {
   let url = '/api/candidates/';
+  debugger
   return dispatch => {
     API.get(url)
       .then(data => {
+        debugger
         dispatch(setCandidates(data.candidates))
       })
   }
@@ -53,18 +55,35 @@ export const getFile = (data) => {
   }
 };
 
-export const uploadFile = ( file, name ) => {
-  let data = new FormData();
-  data.append('file', document);
-  data.append('name', name);
+//export const uploadFile = ( file, name, form ) => {
+export const uploadFile = ({ form }) => {
+  //let data = new FormData();
+  //data.append('file', document);
+  //data.append('name', name);
 
+  var data = new FormData(form);
+
+  debugger
   return dispatch => {
     fetch('/api/uploadFile/', {
       method: 'post',
       body: data
     })
-    .then(res => dispatch(uploadSuccess(res)))
-    .catch(err => dispatch(uploadFail(err)))
+    .then(res => {
+      debugger
+      dispatch(uploadSuccess());
+      dispatch(fetchCandidates());
+    })
+    .catch(err => dispatch(uploadFail()))
   }
 };
+
+
+
+
+
+
+
+
+
 
