@@ -1,6 +1,7 @@
 import mongodb from 'mongodb';
 import path from 'path';
 import parser from './helpers/jsonFileParser';
+import { multerUpload } from './multerUpload'
 import Candidates from './Candidates';
 import { generateJSON, generateCSV } from './helpers/generators';
 import * as CONSTANTS from './constants';
@@ -63,5 +64,18 @@ export const deleteCandidate = (req, res) => {
 
   Candidates.deleteItem(_id, ( err, data ) => {
     res.json(data);
+  });
+};
+
+export const uploadFile = (req, res) => {
+  let { referer } = req.headers;
+
+  multerUpload(req, res, function (err) {
+    if (err) {
+      console.log(err);
+      res.end('Error uploading file.');
+    }
+    // for form after submit redirecting
+    res.redirect(referer);
   });
 };

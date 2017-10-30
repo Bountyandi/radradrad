@@ -1,6 +1,7 @@
 import React, { PureComponent  } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import Immutable from 'immutable'
 import {
   updateCandidate,
   removeCandidate
@@ -14,7 +15,7 @@ import { Button, Icon, Label, Menu, Table } from 'semantic-ui-react';
 class CandidatesTable extends PureComponent  {
 
   static propTypes = {
-    candidates: PropTypes.array.isRequired,
+    candidates: PropTypes.instanceOf(Immutable.List),
     updateCandidate: PropTypes.func.isRequired,
     removeCandidate: PropTypes.func.isRequired
   };

@@ -28,7 +28,7 @@ const candidates = (state = initialState, action) => {
       return state.filter( c => c._id !== action._id );
 
     default:
-      return state
+      return state;
   }
 };
 

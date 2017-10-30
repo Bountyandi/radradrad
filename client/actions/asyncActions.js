@@ -46,7 +46,10 @@ export const getFile = (data) => {
 
   return dispatch => {
     API.get(url)
-      .then( resp => downloadFile(resp.filename))
+      .then( resp => downloadFile({
+        filename: resp.filename,
+        downloadAction: resp.downloadAction
+      }))
   }
 };
 

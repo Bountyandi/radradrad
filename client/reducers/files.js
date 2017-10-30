@@ -13,10 +13,7 @@ const files = (state = initialState, action) => {
       return { isSuccessUpload: true };
 
     case UPLOAD_DOCUMENT_FAIL:
-
       return { isSuccessUpload: false };
-
-
 
     default: return state
   }

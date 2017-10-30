@@ -1,4 +1,5 @@
-import AbstractCollection from './helpers/AbstractCollection'
+import AbstractCollection from './helpers/AbstractCollection';
+import ids from 'short-id';
 
 export default class CandidatesCollection extends AbstractCollection {
 
@@ -15,7 +16,7 @@ export default class CandidatesCollection extends AbstractCollection {
     this.clear();
 
     array.forEach((item, index) => {
-      item._id = index;
+      item._id = ids.generate();
       this.itemsArray.push(item);
     });
   }
@@ -36,6 +37,7 @@ export default class CandidatesCollection extends AbstractCollection {
       return callback('Send correct value please', _id)
     }
     this.itemsArray.splice(_id, 1);
+
     callback(null, _id);
   }
 

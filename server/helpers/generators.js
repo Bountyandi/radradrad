@@ -10,7 +10,10 @@ export const generateJSON = (candidatesArray, filename, res) => {
 
   fs.writeFile( filePath, jsonData, CONSTANTS.ENCODING, (err) => {
     if (err) { return; }
-    res.json({ filename });
+    res.json({
+      filename,
+      downloadAction: CONSTANTS.DOWNLOAD_ACTION
+    });
   });
 };
 
@@ -25,6 +28,9 @@ export const generateCSV = (candidatesArray, filename, res) => {
 
   fs.writeFile( filePath, csvData, CONSTANTS.ENCODING, (err) => {
     if (err) { return; }
-    res.json({ filename });
+    res.json({
+      filename,
+      downloadAction: CONSTANTS.DOWNLOAD_ACTION
+    });
   });
 };

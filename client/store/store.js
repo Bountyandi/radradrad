@@ -1,13 +1,12 @@
 import { createStore, applyMiddleware, compose } from 'redux';
 import { routerMiddleware } from 'react-router-redux';
 import thunk from 'redux-thunk';
-import Immutable from 'immutable';
 import createHistory from 'history/createBrowserHistory';
 import rootReducer from '../reducers/rootReducer';
 
 export const history = createHistory();
 
-const initialState = Immutable.Map({});
+const initialState = {};
 const enhancers = [];
 const middleware = [
   thunk,

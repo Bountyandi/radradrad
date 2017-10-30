@@ -1,21 +1,16 @@
-export const downloadFile = (filename, blob) => {
-  let methodUrl = 'api/downloadFile/';
-  let url = `${window.location.href}${methodUrl}${filename}/`;
+export const downloadFile = ({ filename, downloadAction }) => {
+  let url = `${window.location.href}${downloadAction}${filename}/`;
 
-  window.location.replace(url);
+  let downloadContainer = createIframe();
+  downloadContainer.src = url;
 };
 
+function createIframe() {
+  if (!iframeInstane) {
+    var iframeInstane = document.createElement('iframe');
+    iframeInstane.id = 'download-container';
+    document.body.appendChild(iframeInstane);
+  }
 
-/* first spike
-export const downloadFile = (blob) => {
-  debugger
-  let a = document.createElement('a');
-  a.style = 'display: none';
-  document.body.appendChild(a);
-  let url = window.URL.createObjectURL(blob);
-  a.href = url;
-  a.download = fileName;
-  a.click();
-  window.URL.revokeObjectURL(url);
-};
- */
+  return iframeInstane;
+}
