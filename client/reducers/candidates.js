@@ -14,8 +14,7 @@ const candidates = (state = initialState, action) => {
   switch (action.type) {
 
     case SET_CANDIDATES:
-      state.clear();
-      return state.concat(action.candidates);
+      return Immutable.List(action.candidates);
 
     case PUT_CANDIDATE:
       return state.map(c => {
@@ -33,4 +32,4 @@ const candidates = (state = initialState, action) => {
   }
 };
 
-export default candidates
+export default candidates;

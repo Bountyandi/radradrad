@@ -4,7 +4,7 @@ import {
   UPLOAD_DOCUMENT_FAIL,
 } from '../actions/actionsTypes'
 
-const initialState = false; //Immutable.Set({});
+const initialState = false;
 
 const uploadState = (state = initialState, action) => {
 

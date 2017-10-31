@@ -1,5 +1,5 @@
 import { handleResponse } from './handleResponse';
-import { makeFetch } from './makeFetch';
+import { makeFetch, makeFetchFile } from './makeFetch';
 
 const METHODS = {
   GET: 'GET',

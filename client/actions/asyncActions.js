@@ -11,13 +11,10 @@ import {
 
 export const fetchCandidates = () => {
   let url = '/api/candidates/';
-  debugger
+
   return dispatch => {
     API.get(url)
-      .then(data => {
-        debugger
-        dispatch(setCandidates(data.candidates))
-      })
+      .then(data => dispatch(setCandidates(data.candidates)))
   }
 };
 
@@ -26,9 +23,7 @@ export const updateCandidate = ( candidate ) => {
 
   return dispatch => {
     API.put(url, candidate)
-      .then( data =>
-        dispatch(putCandidate(data))
-      )
+      .then( data => dispatch(putCandidate(data)))
   }
 };
 
@@ -55,35 +50,23 @@ export const getFile = (data) => {
   }
 };
 
-//export const uploadFile = ( file, name, form ) => {
 export const uploadFile = ({ form }) => {
-  //let data = new FormData();
-  //data.append('file', document);
-  //data.append('name', name);
-
   var data = new FormData(form);
+  let url = '/api/uploadFile/';
 
-  debugger
   return dispatch => {
     fetch('/api/uploadFile/', {
       method: 'post',
       body: data
     })
     .then(res => {
-      debugger
-      dispatch(uploadSuccess());
-      dispatch(fetchCandidates());
+      res.json()
+        .then( data => {
+          dispatch(uploadSuccess());
+          dispatch(setCandidates(data.candidates));
+        })
+        .catch(err => dispatch(uploadFail()))
     })
     .catch(err => dispatch(uploadFail()))
   }
 };
-
-
-
-
-
-
-
-
-
-

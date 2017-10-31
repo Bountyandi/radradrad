@@ -13,17 +13,22 @@ export const parseFile = (req, res) => {
       CONSTANTS.UPLOAD_FOLDER,
       global.fileName);
 
-    parser(filePath)
+    return parser(filePath)
       .then((data) => {
         Candidates.addItems(data);
         res.json({candidates: Candidates.getItems()})
       })
       .catch((err) => {
-        console.log(err);
         res.end('Error parsing file.' + err);
       });
   }
 };
+
+export const getCandidates = (req, res) => {
+  const candidates = Candidates.getItems();
+  res.json({ candidates })
+};
+
 
 export const generateFile = (req, res) => {
   let { type } = req.params;
@@ -51,7 +56,11 @@ export const downloadFile = (req, res) => {
 
 export const putCandidate = (req, res) => {
   let { candidate } = req.body;
-  //needs validation
+  if (!candidate) {
+    let errMes = 'object is empty';
+    console.error(errMes);
+    res.end(errMes);
+  }
 
   Candidates.updateItem(candidate, ( err, data ) => {
     res.json(data);
@@ -60,7 +69,11 @@ export const putCandidate = (req, res) => {
 
 export const deleteCandidate = (req, res) => {
   let { _id } = req.body;
-  //needs validation
+  if (!_id) {
+    let errMes = '_id parameter is empty';
+    console.error(errMes);
+    res.end(errMes);
+  }
 
   Candidates.deleteItem(_id, ( err, data ) => {
     res.json(data);
@@ -68,14 +81,12 @@ export const deleteCandidate = (req, res) => {
 };
 
 export const uploadFile = (req, res) => {
-  let { referer } = req.headers;
-
   multerUpload(req, res, function (err) {
     if (err) {
-      console.log(err);
-      res.end('Error uploading file.');
+      console.error(err);
+      res.end(`Error uploading file. Err: ${err}`);
     }
-    // for form after submit redirecting
-    res.redirect(referer);
+
+    parseFile(null, res);
   });
 };

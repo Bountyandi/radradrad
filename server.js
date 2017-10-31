@@ -13,7 +13,7 @@ app.post('/api/uploadFile', api.uploadFile);
 app.get('/api/generateFile/:type/', api.generateFile);
 app.get('/api/downloadFile/:filename/', api.downloadFile);
 
-app.get('/api/candidates/', api.parseFile);
+app.get('/api/candidates/', api.getCandidates);
 app.put('/api/candidates/', api.putCandidate);
 app.delete('/api/candidates/', api.deleteCandidate);
 

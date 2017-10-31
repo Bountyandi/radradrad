@@ -28,7 +28,12 @@ class LoadForm extends Component {
 
   handleFileUpload( event ) {
     event.preventDefault();
-    this.props.uploadFile({form: event.target });
+    if (event.target.file.files.length > 0) {
+      this.props.uploadFile({form: event.target });
+    } else {
+      //Yes I know..
+      alert('Please add file');
+    }
   }
 
   render() {
@@ -57,7 +62,6 @@ class LoadForm extends Component {
     )
   }
 }
-
 
 export default connect(null, {
   uploadFile,

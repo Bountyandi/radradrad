@@ -1,4 +1,4 @@
-import React, { PureComponent  } from 'react';
+import React, { Component  } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Immutable from 'immutable'
@@ -9,10 +9,10 @@ import {
 import CandidateItem from '../components/CandidateItem';
 import TableHeader from '../components/TableHeader';
 
-import { Button, Icon, Label, Menu, Table } from 'semantic-ui-react';
+import { Table } from 'semantic-ui-react';
 
 
-class CandidatesTable extends PureComponent  {
+class CandidatesTable extends Component  {
 
   static propTypes = {
     candidates: PropTypes.instanceOf(Immutable.List),
@@ -26,6 +26,7 @@ class CandidatesTable extends PureComponent  {
   }
 
   render() {
+
     const { candidates } = this.props;
     var tableHeader;
 
@@ -59,7 +60,8 @@ class CandidatesTable extends PureComponent  {
 
 function mapStateToProps(state) {
   return {
-    candidates: state.candidates
+    candidates: state.candidates,
+    uploadState: state.uploadState
   }
 }
 

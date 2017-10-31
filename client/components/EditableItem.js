@@ -52,6 +52,7 @@ export default class EditableItem extends Component {
         </Table.Cell>
         <Table.Cell textAlign='center'>
           <Input
+            type='number'
             value={this.state.candidateNeedOffer}
             onChange={this.handleInput}
             name='candidateNeedOffer'/>
