@@ -5,18 +5,16 @@ import {
   putCandidate,
   deleteCandidate,
   uploadSuccess,
-  uploadFail,
+  uploadFail
 } from './actions';
 
 
 export const fetchCandidates = () => {
   let url = '/api/candidates/';
+
   return dispatch => {
     API.get(url)
-      .then(data => {
-        debugger
-        dispatch(setCandidates(data.candidates))
-      })
+      .then(data => dispatch(setCandidates(data.candidates)))
   }
 };
 
@@ -25,9 +23,7 @@ export const updateCandidate = ( candidate ) => {
 
   return dispatch => {
     API.put(url, candidate)
-      .then( data =>
-        dispatch(putCandidate(data))
-      )
+      .then( data => dispatch(putCandidate(data)))
   }
 };
 
@@ -38,7 +34,7 @@ export const removeCandidate = ( data ) => {
     API.delete(url, data)
       .then( res => dispatch(
         deleteCandidate(res)
-      ))
+    ))
   }
 };
 
@@ -47,23 +43,30 @@ export const getFile = (data) => {
 
   return dispatch => {
     API.get(url)
-      .then( resp => downloadFile(resp.filename))
+      .then( resp => downloadFile({
+        filename: resp.filename,
+        downloadAction: resp.downloadAction
+      }))
   }
-
 };
 
-export const uploadFile = ( file, name ) => {
-  let data = new FormData();
-  data.append('file', document);
-  data.append('name', name);
+export const uploadFile = ({ form }) => {
+  var data = new FormData(form);
+  let url = '/api/uploadFile/';
 
   return dispatch => {
     fetch('/api/uploadFile/', {
       method: 'post',
       body: data
     })
-    .then(res => dispatch(uploadSuccess(res)))
-    .catch(err => dispatch(uploadFail(err)))
+    .then(res => {
+      res.json()
+        .then( data => {
+          dispatch(uploadSuccess());
+          dispatch(setCandidates(data.candidates));
+        })
+        .catch(err => dispatch(uploadFail()))
+    })
+    .catch(err => dispatch(uploadFail()))
   }
 };
-

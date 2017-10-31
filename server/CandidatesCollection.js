@@ -1,4 +1,5 @@
-import AbstractCollection from './helpers/AbstractCollection'
+import AbstractCollection from './helpers/AbstractCollection';
+import ids from 'short-id';
 
 export default class CandidatesCollection extends AbstractCollection {
 
@@ -15,27 +16,39 @@ export default class CandidatesCollection extends AbstractCollection {
     this.clear();
 
     array.forEach((item, index) => {
-      item._id = index;
+      item._id = ids.generate();
       this.itemsArray.push(item);
     });
   }
 
   updateItem(item, callback) {
     if (!item) {
-      callback('Send correct value please', item)
+      callback('Send correct value please', item);
     }
 
-    item.candidateNeedOffer = parseInt(item.candidateNeedOffer);
+    this.itemsArray.forEach(c => {
+      if (c._id === item._id) {
+        c.candidateName = item.candidateName;
+        c.candidateStatus = item.candidateStatus;
+        c.candidateNeedOffer = parseInt(item.candidateNeedOffer);
+      }
+      return c;
+    });
 
-    this.itemsArray.splice(item._id, 1, item);
     callback(null, item);
   }
 
   deleteItem(_id, callback) {
     if (!_id) {
-      return callback('Send correct value please', _id)
+      return callback('Send correct value please', _id);
     }
-    this.itemsArray.splice(_id, 1);
+
+    this.itemsArray.forEach( (c, i) => {
+      if (c._id === _id) {
+        this.itemsArray.splice(i, 1);
+      }
+    });
+
     callback(null, _id);
   }
 

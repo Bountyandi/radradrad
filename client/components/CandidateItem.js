@@ -8,7 +8,7 @@ import { Table, Button, Label } from 'semantic-ui-react';
 export default class CandidateItem extends Component {
 
   static propTypes = {
-    _id: PropTypes.number.isRequired,
+    _id: PropTypes.string.isRequired,
     candidateName: PropTypes.string.isRequired,
     candidateStatus: PropTypes.string.isRequired,
     candidateNeedOffer: PropTypes.number.isRequired,

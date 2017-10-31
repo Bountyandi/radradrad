@@ -1,34 +1,19 @@
 import express from 'express';
 import path from 'path';
 import * as api from './server/apiHandlers';
-import bodyParser from 'body-parser'
-import { multerUpload } from './server/multerUpload'
+import bodyParser from 'body-parser';
 import Candidates from './server/Candidates';
 
 const PORT = 3000;
 const app = express();
 app.use(bodyParser.json());
 
-app.post('/api/uploadFile', (req, res) => {
-  let { referer } = req.headers;
-
-  multerUpload(req, res, function (err) {
-    if (err) {
-      console.log(err);
-      res.end('Error uploading file.');
-    }
-    console.log('File is uploaded');
-    //res.end('File is uploaded');
-
-    // spike for form after submit redirecting
-    res.redirect(referer);
-  });
-});
+app.post('/api/uploadFile', api.uploadFile);
 
 app.get('/api/generateFile/:type/', api.generateFile);
 app.get('/api/downloadFile/:filename/', api.downloadFile);
 
-app.get('/api/candidates/', api.parseFile);
+app.get('/api/candidates/', api.getCandidates);
 app.put('/api/candidates/', api.putCandidate);
 app.delete('/api/candidates/', api.deleteCandidate);
 

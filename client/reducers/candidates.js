@@ -2,16 +2,19 @@ import {
   SET_CANDIDATES,
   PUT_CANDIDATE,
   DELETE_CANDIDATE
-} from '../actions/ActionsTypes'
+} from '../actions/actionsTypes'
 
-const initialState = [];
+import Immutable from 'immutable'
+
+
+const initialState = Immutable.List([]);
 
 const candidates = (state = initialState, action) => {
 
   switch (action.type) {
 
     case SET_CANDIDATES:
-      return action.candidates;
+      return Immutable.List(action.candidates);
 
     case PUT_CANDIDATE:
       return state.map(c => {
@@ -25,8 +28,8 @@ const candidates = (state = initialState, action) => {
       return state.filter( c => c._id !== action._id );
 
     default:
-      return state
+      return state;
   }
 };
 
-export default candidates
+export default candidates;

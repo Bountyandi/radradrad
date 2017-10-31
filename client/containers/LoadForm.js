@@ -28,8 +28,12 @@ class LoadForm extends Component {
 
   handleFileUpload( event ) {
     event.preventDefault();
-    const file = event.target[0].files[0];
-    this.props.uploadFile(event.target, file.name);
+    if (event.target.file.files.length > 0) {
+      this.props.uploadFile({form: event.target });
+    } else {
+      //Yes I know..
+      alert('Please add file');
+    }
   }
 
   render() {
@@ -39,7 +43,7 @@ class LoadForm extends Component {
 
         <br/>
 
-        <form
+        <form onSubmit={this.handleFileUpload}
           target='_self'
           id='uploadForm'
           action='/api/uploadFile'
@@ -59,5 +63,7 @@ class LoadForm extends Component {
   }
 }
 
-
-export default connect(null, { uploadFile, fetchCandidates })(LoadForm)
+export default connect(null, {
+  uploadFile,
+  fetchCandidates
+})(LoadForm)
